@@ -1,7 +1,7 @@
 # arp_spoofer
 ## Usage: python3 arp_spoof.py  [-t TARGET] [-s SPOOF]
 
-## arguments:
+## Arguments:
   - -h, --help            show this help message and exit
   - -t TARGET, --target TARGET
                         Target IP to spoof.
